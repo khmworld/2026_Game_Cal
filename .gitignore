@@ -1,0 +1,27 @@
+﻿# Python cache
+__pycache__/
+*.py[cod]
+
+# Build outputs
+build/
+dist/
+*.spec.bak
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Logs and runtime locks
+*.log
+gamecalendar.lock
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temp assets
+assets_test.png
+assets_test.ico
