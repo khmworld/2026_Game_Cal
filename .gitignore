@@ -25,3 +25,5 @@ Thumbs.db
 # Temp assets
 assets_test.png
 assets_test.ico
+# GPU driver runtime logs
+NVIDIA Corporation/

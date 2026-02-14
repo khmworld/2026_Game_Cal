@@ -38,8 +38,12 @@ def ensure_calendar_file(path: str | Path) -> tuple[Path, bool]:
     target = Path(path)
     created = False
     if not target.exists():
-        target.write_text(SAMPLE_MARKDOWN, encoding="utf-8")
-        created = True
+        bundled = resource_path("calendar.md")
+        if bundled.exists():
+            target.write_text(bundled.read_text(encoding="utf-8"), encoding="utf-8")
+        else:
+            target.write_text(SAMPLE_MARKDOWN, encoding="utf-8")
+            created = True
     return target, created
 
 
