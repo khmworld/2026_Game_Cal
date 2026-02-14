@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $root
@@ -32,9 +32,9 @@ function Stop-GameCalendarProcesses {
 
     $left = Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.ProcessName -like "GameCalendar*" }
     if ($left) {
-        Write-Host "남아있는 프로세스(PID):" -ForegroundColor Yellow
+        Write-Host "Still running process (PID):" -ForegroundColor Yellow
         $left | Select-Object ProcessName, Id | Format-Table -AutoSize
-        throw "프로세스 잠금 해제 실패. 관리자 권한 PowerShell에서 build.ps1을 다시 실행하거나 재부팅 후 재시도하세요."
+        throw "Failed to stop existing GameCalendar process. Run PowerShell as Administrator and retry build.ps1."
     }
 }
 
@@ -55,10 +55,15 @@ function Show-Result {
     Write-Host "[4/4] Build result check..."
     $exePath = ".\dist\GameCalendar_onedir\GameCalendar_onedir.exe"
     if (-not (Test-Path $exePath)) {
-        throw "빌드 결과 exe를 찾을 수 없습니다: $exePath"
+        throw "Build output not found: $exePath"
     }
+
+    if (Test-Path ".\calendar.md") {
+        Copy-Item ".\calendar.md" ".\dist\GameCalendar_onedir\calendar.md" -Force
+    }
+
     Get-Item $exePath | Select-Object FullName, Length, LastWriteTime | Format-List
-    Write-Host "`n완료: dist\GameCalendar_onedir 폴더째로 배포하세요." -ForegroundColor Green
+    Write-Host "`nDone: distributable folder is dist\GameCalendar_onedir" -ForegroundColor Green
 }
 
 Stop-GameCalendarProcesses

@@ -2,6 +2,7 @@
 
 import calendar
 from datetime import date, timedelta
+from urllib.parse import urlparse
 
 from PySide6.QtCore import Qt, QUrl, Signal
 from PySide6.QtGui import QDesktopServices, QKeySequence, QShortcut
@@ -78,9 +79,13 @@ class DayCell(QFrame):
         self.extra_badge = QLabel("")
         self.extra_badge.setObjectName("CountBadge")
         self.extra_badge.hide()
+        self.link_badge = QLabel("")
+        self.link_badge.setObjectName("LinkBadge")
+        self.link_badge.hide()
 
         top.addWidget(self.day_label)
         top.addStretch(1)
+        top.addWidget(self.link_badge)
         top.addWidget(self.extra_badge)
         root.addLayout(top)
 
@@ -111,16 +116,27 @@ class DayCell(QFrame):
 
         previews = events_on_day[:2]
         for ev in previews:
-            pill = QLabel(ev.title[:22])
+            lead_emoji = f"{ev.emoji_tags[0]} " if ev.emoji_tags else ""
+            pill_text = f"{lead_emoji}{ev.title}"
+            pill = QLabel(pill_text[:22])
             pill.setObjectName("EventPill")
             pill.setProperty("status", ev.status.name.lower())
-            pill.setToolTip(f"{ev.title}\n{ev.date_range_str()} | {ev.status.value}")
+            pill.setToolTip(f"{pill_text}\n{ev.date_range_str()} | {ev.status.value}")
             pill.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents, True)
             self.preview_box.addWidget(pill)
 
         if events_on_day:
             top_status = sorted(events_on_day, key=lambda x: STATUS_PRIORITY.get(x.status, 99))[0].status
             self.extra_badge.setProperty("status", top_status.name.lower())
+            url_count = sum(1 for ev in events_on_day if ev.url)
+            if url_count > 0:
+                self.link_badge.setText("🔗" if url_count == 1 else f"🔗{url_count}")
+                self.link_badge.setToolTip(f"링크 포함 일정 {url_count}건")
+                self.link_badge.show()
+            else:
+                self.link_badge.hide()
+        else:
+            self.link_badge.hide()
 
         if len(events_on_day) > 2:
             self.extra_badge.setText(f"+{len(events_on_day) - 2}")
@@ -526,7 +542,8 @@ class GameCalendarWindow(QMainWindow):
         layout.setContentsMargins(14, 12, 14, 12)
         layout.setSpacing(8)
 
-        title = QLabel(event.title)
+        title_text = f"{event.emoji_tags[0]} {event.title}" if event.emoji_tags else event.title
+        title = QLabel(title_text)
         title.setObjectName("EventTitle")
         title.setWordWrap(True)
         layout.addWidget(title)
@@ -540,6 +557,12 @@ class GameCalendarWindow(QMainWindow):
         status_badge.setObjectName("StatusBadge")
         status_badge.setProperty("status", event.status.name.lower())
         meta.addWidget(status_badge)
+        if event.url:
+            domain = urlparse(event.url).netloc or event.url
+            domain_label = QLabel(f"🔗 {domain}")
+            domain_label.setObjectName("UrlDomain")
+            domain_label.setToolTip(event.url)
+            meta.addWidget(domain_label)
         meta.addStretch(1)
         layout.addLayout(meta)
 

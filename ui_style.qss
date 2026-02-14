@@ -139,6 +139,14 @@ QComboBox::down-arrow {
     font-weight: 700;
 }
 
+#LinkBadge {
+    color: #dbe7ff;
+    border-radius: 8px;
+    padding: 0 6px;
+    font-size: 8.5pt;
+    background: rgba(79, 125, 255, 0.22);
+}
+
 #CountBadge[status="confirmed"], #CountBadge[status="official"] {
     background: #4f7dff;
 }
@@ -246,6 +254,14 @@ QComboBox::down-arrow {
 #EventDate,
 #EventDescription {
     color: #9bb0cf;
+}
+
+#UrlDomain {
+    color: #b9d9ff;
+    border: 1px solid rgba(120, 138, 170, 0.32);
+    border-radius: 8px;
+    padding: 1px 7px;
+    font-size: 8.6pt;
 }
 
 #RootWidget[theme="light"] #EventDate,
