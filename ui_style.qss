@@ -9,8 +9,8 @@
 }
 
 #RootWidget[theme="light"] {
-    background: #f4f6fb;
-    color: #1f2937;
+    background: #f6f8fc;
+    color: #0f172a;
 }
 
 QPushButton, QToolButton, QComboBox, QLineEdit {
@@ -75,7 +75,20 @@ QComboBox::down-arrow {
 #RootWidget[theme="light"] QComboBox,
 #RootWidget[theme="light"] QLineEdit {
     background: #ffffff;
-    color: #1f2937;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+#RootWidget[theme="light"] QPushButton:hover,
+#RootWidget[theme="light"] QToolButton:hover,
+#RootWidget[theme="light"] QComboBox:hover,
+#RootWidget[theme="light"] QLineEdit:hover {
+    border: 1px solid #94a3b8;
+}
+
+#RootWidget[theme="light"] QPushButton:pressed,
+#RootWidget[theme="light"] QToolButton:pressed {
+    background: #f1f5f9;
 }
 
 #CalendarPanel {
@@ -89,6 +102,7 @@ QComboBox::down-arrow {
 
 #RootWidget[theme="light"] #CalendarPanel {
     background: #ffffff;
+    border: 1px solid #d6deea;
 }
 
 #MonthTitle {
@@ -111,7 +125,8 @@ QComboBox::down-arrow {
 }
 
 #RootWidget[theme="light"] #DayCell {
-    background: #f9fbff;
+    background: #f8fafc;
+    border: 1px solid #d8e1ef;
 }
 
 #DayCell[selected="true"] {
@@ -126,8 +141,21 @@ QComboBox::down-arrow {
     opacity: 0.6;
 }
 
+#RootWidget[theme="light"] #DayCell[today="true"] {
+    border: 2px solid #dc2626;
+}
+
+#RootWidget[theme="light"] #DayCell[outside="true"] {
+    opacity: 1.0;
+    background: #eef2f7;
+}
+
 #DayNumber {
     font-weight: 700;
+}
+
+#RootWidget[theme="light"] #DayNumber {
+    color: #0f172a;
 }
 
 #CountBadge {
@@ -145,6 +173,12 @@ QComboBox::down-arrow {
     padding: 0 6px;
     font-size: 8.5pt;
     background: rgba(79, 125, 255, 0.22);
+}
+
+#RootWidget[theme="light"] #LinkBadge {
+    color: #1d4ed8;
+    background: rgba(59, 130, 246, 0.14);
+    border: 1px solid rgba(59, 130, 246, 0.24);
 }
 
 #CountBadge[status="confirmed"], #CountBadge[status="official"] {
@@ -182,14 +216,23 @@ QComboBox::down-arrow {
 
 #RootWidget[theme="light"] #EventPill[status="confirmed"],
 #RootWidget[theme="light"] #EventPill[status="official"] {
-    background: rgba(59, 130, 246, 0.16);
-    color: #23406f;
+    background: rgba(37, 99, 235, 0.16);
+    color: #1e3a8a;
 }
 
 #RootWidget[theme="light"] #EventPill[status="expected"],
 #RootWidget[theme="light"] #EventPill[status="unsure"],
 #RootWidget[theme="light"] #EventPill[status="unknown"] {
-    color: #43536d;
+    color: #334155;
+}
+
+#RootWidget[theme="light"] #EventPill[status="expected"] {
+    background: rgba(245, 158, 11, 0.18);
+}
+
+#RootWidget[theme="light"] #EventPill[status="unsure"],
+#RootWidget[theme="light"] #EventPill[status="unknown"] {
+    background: rgba(100, 116, 139, 0.18);
 }
 
 #PanelTitle {
@@ -209,6 +252,7 @@ QComboBox::down-arrow {
 
 #RootWidget[theme="light"] #RightPane {
     background: #ffffff;
+    border: 1px solid #d6deea;
 }
 
 #EventsPane {
@@ -231,7 +275,8 @@ QComboBox::down-arrow {
 }
 
 #RootWidget[theme="light"] #EventCard {
-    background: #ffffff;
+    background: #fbfdff;
+    border: 1px solid #cfd9e8;
 }
 
 #EventCard[status="confirmed"], #EventCard[status="official"] {
@@ -266,7 +311,52 @@ QComboBox::down-arrow {
 
 #RootWidget[theme="light"] #EventDate,
 #RootWidget[theme="light"] #EventDescription {
-    color: #5b6b82;
+    color: #334155;
+}
+
+#RootWidget[theme="light"] #UrlDomain {
+    color: #1d4ed8;
+    background: rgba(59, 130, 246, 0.10);
+    border: 1px solid rgba(59, 130, 246, 0.30);
+}
+
+#RootWidget[theme="light"] #StatusBadge[status="confirmed"],
+#RootWidget[theme="light"] #StatusBadge[status="official"] {
+    background: rgba(37, 99, 235, 0.16);
+    color: #1e3a8a;
+}
+
+#RootWidget[theme="light"] #StatusBadge[status="expected"] {
+    background: rgba(245, 158, 11, 0.22);
+    color: #7c2d12;
+}
+
+#RootWidget[theme="light"] #StatusBadge[status="unsure"],
+#RootWidget[theme="light"] #StatusBadge[status="unknown"] {
+    background: rgba(100, 116, 139, 0.20);
+    color: #334155;
+}
+
+#RootWidget[theme="light"] #FilterChip {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+#RootWidget[theme="light"] #FilterChip:hover {
+    border: 1px solid #94a3b8;
+}
+
+#RootWidget[theme="light"] #MonthCombo,
+#RootWidget[theme="light"] #NavButton {
+    border: 1px solid #b8c4d8;
+    color: #0f172a;
+    background: #ffffff;
+}
+
+#RootWidget[theme="light"] #MonthCombo:hover,
+#RootWidget[theme="light"] #NavButton:hover {
+    border: 1px solid #7f93b6;
 }
 
 #StatusBadge {

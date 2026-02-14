@@ -84,15 +84,6 @@ def _resolve_icon_path() -> Path | None:
     return None
 
 
-def _initial_month(events) -> tuple[int, int]:
-    valid_dates = [e.start_date for e in events if e.start_date]
-    if not valid_dates:
-        now = date.today()
-        return now.year, now.month
-    first = min(valid_dates)
-    return first.year, first.month
-
-
 def main() -> int:
     global _APP_LOCK
 
@@ -122,7 +113,8 @@ def main() -> int:
 
         cal_path, created = ensure_calendar_file(app_directory() / "calendar.md")
         events, invalid_events = parse_calendar_markdown(cal_path)
-        initial_year, initial_month = _initial_month(events)
+        today = date.today()
+        initial_year, initial_month = today.year, today.month
 
         window = GameCalendarWindow(
             events=events,
@@ -134,7 +126,7 @@ def main() -> int:
         )
         if icon_path is not None:
             window.setWindowIcon(QIcon(str(icon_path)))
-        window.show()
+        window.showMaximized()
 
         if created:
             QMessageBox.information(

@@ -432,6 +432,7 @@ class GameCalendarWindow(QMainWindow):
         self.theme_btn.setText("라이트모드" if theme == "dark" else "다크모드")
         root.style().unpolish(root)
         root.style().polish(root)
+        self._refresh_all()
 
     def _toggle_theme(self) -> None:
         self._apply_theme("light" if self.theme == "dark" else "dark")
